@@ -38,15 +38,16 @@ public class Main {
     return s.matches("^(\"(?:\\d+|)\"(?:;\"(?:\\d+|)\")*)$");
   }
 
-  private static int currentLineId = 0;
-  private static void processLine(String s) {
-    if (isLineValid(s)) {
-      var words = s.split(";");
-      lines.add(currentLineId, s);
-      for (int i = 0; i < words.length; i++)
-        handleWord(currentLineId, i, words[i]);
+  private static void processLine(String line) {
+    if (isLineValid(line)) {
+      lines.add(line);
+      handleWords(lines.size() - 1, line.split(";"));
     }
-    currentLineId++;
+  }
+
+  private static void handleWords(int currentLineId, String[] words) {
+    for (int i = 0; i < words.length; i++)
+      handleWord(currentLineId, i, words[i]);
   }
 
   private static void handleWord(int currentLineId, int currentWordId, String currentWord) {
@@ -58,20 +59,19 @@ public class Main {
     wordPositionData.get(currentWordId).put(currentWord, currentLineId);
   }
 
-  private static int newGroupId = 0;
   private static void formGroups(int lastMatchingLineId, int currentLineId) {
     if (lineGroupMap.containsKey(lastMatchingLineId)) {
       var groupId = lineGroupMap.get(lastMatchingLineId);
       lineGroupMap.put(currentLineId, groupId);
       groups.get(groupId).add(currentLineId);
     } else {
+      var newGroupId = groups.size();
       lineGroupMap.put(lastMatchingLineId, newGroupId);
       lineGroupMap.put(currentLineId, newGroupId);
       var newGroup = new ArrayList<Integer>();
       newGroup.add(lastMatchingLineId);
       newGroup.add(currentLineId);
       groups.add(newGroupId, newGroup);
-      newGroupId++;
     }
   }
 
