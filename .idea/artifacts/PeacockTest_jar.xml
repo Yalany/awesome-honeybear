@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="PeacockTest:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/PeacockTest_jar</output-path>
+    <root id="archive" name="PeacockTest.jar">
+      <element id="module-output" name="PeacockTest" />
+    </root>
+  </artifact>
+</component>
