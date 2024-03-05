@@ -64,6 +64,10 @@ public class Main {
       var groupId = lineGroupMap.get(lastMatchingLineId);
       lineGroupMap.put(currentLineId, groupId);
       groups.get(groupId).add(currentLineId);
+    } else if (lineGroupMap.containsKey(currentLineId)) {
+      var groupId = lineGroupMap.get(currentLineId);
+      lineGroupMap.put(currentLineId, groupId);
+      groups.get(groupId).add(lastMatchingLineId);
     } else {
       var newGroupId = groups.size();
       lineGroupMap.put(lastMatchingLineId, newGroupId);
