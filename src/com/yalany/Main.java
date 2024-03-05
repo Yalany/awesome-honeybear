@@ -80,7 +80,7 @@ public class Main {
       writer.write("Number of groups with two or more elements: " + groups.size() + "\n");
       for (int i = 0; i < groups.size(); i++) {
         var group = groups.get(i);
-        writer.write("Group " + i + "\n");
+        writer.write("Group " + (i + 1) + "\n");
         for (var lineId : group)
           writer.write(lines.get(lineId) + "\n");
       }
