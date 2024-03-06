@@ -7,20 +7,26 @@ import java.util.ArrayList;
 import java.util.HashSet;
 
 public class Main {
-  private static final String outputFileName = "out-big.txt";
+  private static final String outputFileName = "out.txt";
 
   public static void main(String[] args) {
     assert args.length != 0: "argument: file name is expected";
     var startTime = System.nanoTime();
-    var data = new ArrayList<>(readUniqueData(args[0]));
-    new Solution(data, "").printResults(outputFileName);
+    new Solution(new ArrayList<>(readData(args[0]))).printResults(outputFileName);
     System.out.println("Execution time: " + ((System.nanoTime() - startTime)/1_000_000) + " ms");
   }
 
-  private static HashSet<String> readUniqueData(String from) {
+  private static boolean validate(String s) {
+//    return s.matches("^(\"(?:\\d+|)\"(?:;\"(?:\\d+|)\")*)$");
+    return true;
+  }
+
+  private static HashSet<String> readData(String from) {
     var data = new HashSet<String>();
     try (var lines = Files.lines(Path.of(from))) {
-      lines.forEach(e -> data.add(e.intern()));
+      lines.forEach(line -> {
+        if (validate(line)) data.add(line);
+      });
     } catch (IOException e) {
       e.printStackTrace();
     }
