@@ -17,8 +17,7 @@ public class Main {
   }
 
   private static boolean validate(String s) {
-//    return s.matches("^(\"(?:\\d+|)\"(?:;\"(?:\\d+|)\")*)$");
-    return true;
+    return s.matches("^([^;]*;)*[^;]*$");
   }
 
   private static HashSet<String> readData(String from) {
